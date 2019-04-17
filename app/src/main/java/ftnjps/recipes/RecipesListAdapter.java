@@ -17,7 +17,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import androidx.annotation.NonNull;
 
@@ -103,6 +106,8 @@ public class RecipesListAdapter extends ArrayAdapter<Recipe> {
         //download and display image from url
         imageLoader.displayImage(imgUrl, holder.recipeImage, options);
 
+        final SimpleDateFormat format = new SimpleDateFormat("dd-MM-YYYY");
+
         holder.recipeDescription.setText(recipeDescription);
         holder.recipeDescription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +120,13 @@ public class RecipesListAdapter extends ArrayAdapter<Recipe> {
                 intent.putExtra("RECIPE_PREPARATION_STEPS", getItem(finalPosition).getPreparationSteps());
                 intent.putExtra("RECIPE_NUMBER_OF_PEOPLE", Integer.toString(getItem(finalPosition).getNumberOfPeople()));
                 intent.putExtra("RECIPE_TIME_OF_PREPARATION", Integer.toString(getItem(finalPosition).getTimeOfPreparation()));
-                intent.putExtra("RECIPE_CREATION_DATE", getItem(finalPosition).getCreationDate().toString());
+
+                try {
+                    intent.putExtra("RECIPE_CREATION_DATE", format.format(getItem(finalPosition).getCreationDate()));
+                    System.out.println( format.parse(format.format(getItem(finalPosition).getCreationDate())));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 intent.putExtra("RECIPE_IMAGE_URL", getItem(finalPosition).getImgURL());
 
                 mContext.startActivity(intent);
@@ -134,7 +145,12 @@ public class RecipesListAdapter extends ArrayAdapter<Recipe> {
                 intent.putExtra("RECIPE_PREPARATION_STEPS", getItem(finalPosition).getPreparationSteps());
                 intent.putExtra("RECIPE_NUMBER_OF_PEOPLE", Integer.toString(getItem(finalPosition).getNumberOfPeople()));
                 intent.putExtra("RECIPE_TIME_OF_PREPARATION", Integer.toString(getItem(finalPosition).getTimeOfPreparation()));
-                intent.putExtra("RECIPE_CREATION_DATE", getItem(finalPosition).getCreationDate().toString());
+                try {
+                    intent.putExtra("RECIPE_CREATION_DATE", format.format(getItem(finalPosition).getCreationDate()));
+                    System.out.println( format.parse(format.format(getItem(finalPosition).getCreationDate())));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 intent.putExtra("RECIPE_IMAGE_URL", getItem(finalPosition).getImgURL());
 
                 mContext.startActivity(intent);
