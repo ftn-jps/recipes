@@ -81,4 +81,5 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_recipe">RecipeActivity</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
