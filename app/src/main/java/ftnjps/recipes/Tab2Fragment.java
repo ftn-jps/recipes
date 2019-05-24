@@ -29,6 +29,7 @@ public class Tab2Fragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.activity_maps, container, false);
+        final Recipe r = (Recipe) this.getArguments().getSerializable("recipe");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);  //use SuppoprtMapFragment for using in fragment instead of activity  MapFragment = activity   SupportMapFragment = fragment
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -39,7 +40,7 @@ public class Tab2Fragment extends Fragment implements OnMapReadyCallback {
                 mMap.clear(); //clear old markers
 
                 CameraPosition googlePlex = CameraPosition.builder()
-                        .target(new LatLng(45.2671,19.8335))
+                        .target(new LatLng(r.getLatitude(),r.getLongitude()))
                         .zoom(10)
                         .bearing(0)
                         .tilt(45)
@@ -48,16 +49,14 @@ public class Tab2Fragment extends Fragment implements OnMapReadyCallback {
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 10000, null);
 
                 mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(45.2671,19.8335))
+                        .position(new LatLng(r.getLatitude(),r.getLongitude()))
                         .title("Butkica")
                         .snippet("U ovoj zemlji ljudi vole meso"));
 
             }
         });
 
-
         return rootView;
-
 
     }
 

@@ -27,12 +27,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ListView mListView;
-    private ArrayList<String> mRecipes = new ArrayList<String>();
+    private ArrayList<Recipe> mRecipes = new ArrayList<Recipe>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +57,17 @@ public class MainActivity extends AppCompatActivity
 
         // KREIRANJE LISTE RECEPATA POKUPLJENIH SA FIREBASE-A
         mListView = findViewById(R.id.recipesListView);
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mRecipes);
-        mListView.setAdapter(arrayAdapter);
+        //final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mRecipes);
+        final RecipesListAdapter adapter = new RecipesListAdapter(this, R.layout.adapter_view_layout, mRecipes);
+        mListView.setAdapter(adapter);
 
         // LISTENER KOJI POKUPI RECEPTE SA FIREBASE-A I SMESTI IH U LISTU KOJA JE PROSLEDNJEA LISTVIEW-U
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Recipe r = dataSnapshot.getValue(Recipe.class);
-                mRecipes.add(r.getTitle());
-                arrayAdapter.notifyDataSetChanged();
+                mRecipes.add(r);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -99,6 +101,71 @@ public class MainActivity extends AppCompatActivity
                 MainActivity.this.startActivity(myIntent);
             }
         });
+
+        /*Recipe r1 = new Recipe("drawable://" + R.drawable.beer_ribs, "Rebarca pecena u rerni sa crnim pivom",
+                "Pripremati sa srcem, paziti da ne pregori i da se ne popije pivo.",
+                "Srednje",
+                3,
+                50,
+                "Prelijemo rebarca marinadom\nUbacimo u rernu\nIzvadimo iz rerne",
+                new Date(),
+                45.2671,
+                19.8335
+
+        );
+        Recipe r2 = new Recipe("drawable://" + R.drawable.oven_ribs, "Svinjska rebarca u marinadi od piva",
+                "Pazljivo pripremati sa dusom, paziti da ne pregori nista i da se ne popije svo pivo.",
+                "Srednje",
+                4,
+                30,
+                "Kupimo 1kg rebarca i 1L crnog piva po izboru\nPrelijemo rebarca marinadom i pivom\nUbacimo u rernu\nIzvadimo iz rerne",
+                new Date(),
+                38.7223,
+                9.1393
+
+        );
+        Recipe r3 = new Recipe("drawable://" + R.drawable.peas_ribs, "BBQ rebarca sa zapecenim graskom",
+                "Dobro spremiti BBQ od njega ce zavisiti krajnji rezultat.",
+                "Tesko",
+                10,
+                70,
+                "Napravimo BBQ\nGrilamo rebarca\nJedemo rebarca",
+                new Date(),
+                41.3851,
+                2.1734
+        );
+        Recipe r4 = new Recipe("drawable://" + R.drawable.roasted_pork_knukle, "Slasna kolenica",
+                "Izabrati dobar komad mesa u mesari.",
+                "Lako",
+                2,
+                65,
+                "Pazljivo poslozimo kolenicu u rernu\nPremazemo marinadom\nIzvadimo iz rerne",
+                new Date(),
+                47.8864,
+                106.9057
+        );
+        Recipe r5 = new Recipe("drawable://" + R.drawable.sauce_pork_knuckle, "Kolenica u sacu",
+                "Biti uz sac i mesati bez prestanka za bolji ukus.",
+                "Srednje",
+                5,
+                95,
+                "Spremimo materijal za sac\nNapravimo sac\nUbacimo kolenicu\nIzvadimo posle krckanja",
+                new Date(),
+                18.8792,
+                47.5079
+        );
+
+
+
+        // adding to Firebase database as 1 value
+        // myRef.setValue(r1);
+
+        // ADDING TO FIREBASE TO RECIPES LIST
+        myRef.push().setValue(r1);
+        myRef.push().setValue(r2);
+        myRef.push().setValue(r3);
+        myRef.push().setValue(r4);
+        myRef.push().setValue(r5);*/
     }
 
     @Override

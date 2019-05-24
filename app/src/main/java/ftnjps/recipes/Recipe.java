@@ -1,8 +1,9 @@
 package ftnjps.recipes;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Recipe {
+public class Recipe implements Serializable {
 
     private static Long id_counter = 1l;
 
@@ -14,11 +15,14 @@ public class Recipe {
     private int numberOfPeople;
     private int timeOfPreparation;
     private String preparationSteps;
+    private Date creationDate;
+    private Double latitude;
+    private Double longitude;
 
     public Recipe() {
     }
 
-    public Recipe(String imgURL, String title, String description, String difficulty, int numberOfPeople, int timeOfPreparation, String preparationSteps, Date creationDate) {
+    public Recipe(String imgURL, String title, String description, String difficulty, int numberOfPeople, int timeOfPreparation, String preparationSteps, Date creationDate, Double latitude, Double longitude) {
         this.imgURL = imgURL;
         this.title = title;
         this.description = description;
@@ -27,6 +31,9 @@ public class Recipe {
         this.timeOfPreparation = timeOfPreparation;
         this.preparationSteps = preparationSteps;
         this.id = id_counter++;
+        this.creationDate = creationDate;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public static Long getId_counter() {
@@ -107,6 +114,30 @@ public class Recipe {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
 }
