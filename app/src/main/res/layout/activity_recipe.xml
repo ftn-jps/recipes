@@ -16,14 +16,14 @@
         android:text="TextView"
         android:layout_centerHorizontal="true"
         android:textColor="@color/colorRecipeDescriptionText"
-        android:textSize="28sp" />
+        android:textSize="24sp" />
 
     <ImageView
         android:id="@+id/imageViewRecipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewRecipeTitle"
-        android:scaleType="fitXY"
+        android:scaleType="centerInside"
         android:adjustViewBounds="true"/>
 
     <TextView
