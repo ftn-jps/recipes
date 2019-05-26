@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "985714655490",
+    "firebase_url": "https://recipes-dd9bb.firebaseio.com",
+    "project_id": "recipes-dd9bb",
+    "storage_bucket": "recipes-dd9bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985714655490:android:06b16587c0ebd9d4",
+        "android_client_info": {
+          "package_name": "ftnjps.recipes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985714655490-3s7ihqquad1ucs3s987q8t5d6vccfeg3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJuKn-kAIjMSvCjaQ6q8yTIeEh_-d0qoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985714655490-3s7ihqquad1ucs3s987q8t5d6vccfeg3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

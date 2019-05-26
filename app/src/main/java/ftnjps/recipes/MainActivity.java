@@ -3,13 +3,17 @@ package ftnjps.recipes;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,15 +22,24 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private ListView mListView;
+    private ArrayList<Recipe> mRecipes = new ArrayList<Recipe>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -37,6 +50,122 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // KONEKCIJA SA FIREBASE
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("recipes");
+
+        // KREIRANJE LISTE RECEPATA POKUPLJENIH SA FIREBASE-A
+        mListView = findViewById(R.id.recipesListView);
+        //final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mRecipes);
+        final RecipesListAdapter adapter = new RecipesListAdapter(this, R.layout.adapter_view_layout, mRecipes);
+        mListView.setAdapter(adapter);
+
+        // LISTENER KOJI POKUPI RECEPTE SA FIREBASE-A I SMESTI IH U LISTU KOJA JE PROSLEDNJEA LISTVIEW-U
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Recipe r = dataSnapshot.getValue(Recipe.class);
+                mRecipes.add(r);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        // NA KLIK JEDNOG RECEPTA IZ LISTE OTVARA SE DETAILVIEW RECEPTA
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent myIntent = new Intent(MainActivity.this, RecipeActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                MainActivity.this.startActivity(myIntent);
+            }
+        });
+
+        /*Recipe r1 = new Recipe("drawable://" + R.drawable.beer_ribs, "Rebarca pecena u rerni sa crnim pivom",
+                "Pripremati sa srcem, paziti da ne pregori i da se ne popije pivo.",
+                "Srednje",
+                3,
+                50,
+                "Prelijemo rebarca marinadom\nUbacimo u rernu\nIzvadimo iz rerne",
+                new Date(),
+                45.2671,
+                19.8335
+
+        );
+        Recipe r2 = new Recipe("drawable://" + R.drawable.oven_ribs, "Svinjska rebarca u marinadi od piva",
+                "Pazljivo pripremati sa dusom, paziti da ne pregori nista i da se ne popije svo pivo.",
+                "Srednje",
+                4,
+                30,
+                "Kupimo 1kg rebarca i 1L crnog piva po izboru\nPrelijemo rebarca marinadom i pivom\nUbacimo u rernu\nIzvadimo iz rerne",
+                new Date(),
+                38.7223,
+                9.1393
+
+        );
+        Recipe r3 = new Recipe("drawable://" + R.drawable.peas_ribs, "BBQ rebarca sa zapecenim graskom",
+                "Dobro spremiti BBQ od njega ce zavisiti krajnji rezultat.",
+                "Tesko",
+                10,
+                70,
+                "Napravimo BBQ\nGrilamo rebarca\nJedemo rebarca",
+                new Date(),
+                41.3851,
+                2.1734
+        );
+        Recipe r4 = new Recipe("drawable://" + R.drawable.roasted_pork_knukle, "Slasna kolenica",
+                "Izabrati dobar komad mesa u mesari.",
+                "Lako",
+                2,
+                65,
+                "Pazljivo poslozimo kolenicu u rernu\nPremazemo marinadom\nIzvadimo iz rerne",
+                new Date(),
+                47.8864,
+                106.9057
+        );
+        Recipe r5 = new Recipe("drawable://" + R.drawable.sauce_pork_knuckle, "Kolenica u sacu",
+                "Biti uz sac i mesati bez prestanka za bolji ukus.",
+                "Srednje",
+                5,
+                95,
+                "Spremimo materijal za sac\nNapravimo sac\nUbacimo kolenicu\nIzvadimo posle krckanja",
+                new Date(),
+                18.8792,
+                47.5079
+        );
+
+
+
+        // adding to Firebase database as 1 value
+        // myRef.setValue(r1);
+
+        // ADDING TO FIREBASE TO RECIPES LIST
+        myRef.push().setValue(r1);
+        myRef.push().setValue(r2);
+        myRef.push().setValue(r3);
+        myRef.push().setValue(r4);
+        myRef.push().setValue(r5);*/
     }
 
     @Override
