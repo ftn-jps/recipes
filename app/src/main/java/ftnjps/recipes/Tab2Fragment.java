@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import androidx.fragment.app.Fragment;
+import ftnjps.recipes.data.Recipe;
 
 public class Tab2Fragment extends Fragment implements OnMapReadyCallback {
 

@@ -54,7 +54,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ftnjps.recipes.MainActivity" />
         </activity>
-        <service android:name="DatabaseJobService"
+        <service android:name=".data.DatabaseJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"></service>
     </application>
 

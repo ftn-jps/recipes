@@ -1,8 +1,9 @@
-package ftnjps.recipes;
+package ftnjps.recipes.data;
 
 import android.content.Context;
 
 import androidx.room.Room;
+import ftnjps.recipes.data.AppDatabase;
 
 // SINGLETON JER JE KREIRANJE BAZE SKUPO PA DA NE KREIRAMO STALNO NOVU
 public class DatabaseInstance {

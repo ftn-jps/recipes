@@ -10,10 +10,10 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import androidx.fragment.app.Fragment;
+import ftnjps.recipes.data.Recipe;
 
 public class Tab1Fragment extends Fragment {
 

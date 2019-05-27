@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 
 import androidx.annotation.NonNull;
+import ftnjps.recipes.data.Recipe;
 
 public class RecipesListAdapter extends ArrayAdapter<Recipe> {
 

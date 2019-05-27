@@ -1,8 +1,7 @@
-package ftnjps.recipes;
+package ftnjps.recipes.data;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;
-import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
 import android.util.Log;
 

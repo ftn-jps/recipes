@@ -1,4 +1,4 @@
-package ftnjps.recipes;
+package ftnjps.recipes.data;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import ftnjps.recipes.data.Recipe;
 
 @Dao
 public interface RecipeDao {

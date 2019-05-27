@@ -12,6 +12,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import ftnjps.recipes.data.DatabaseInstance;
+import ftnjps.recipes.data.Recipe;
 
 import android.view.Menu;
 import android.view.MenuItem;

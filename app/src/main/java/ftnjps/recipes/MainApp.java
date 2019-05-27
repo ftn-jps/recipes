@@ -18,6 +18,9 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import ftnjps.recipes.data.DatabaseInstance;
+import ftnjps.recipes.data.DatabaseJobService;
+import ftnjps.recipes.data.Recipe;
 
 public class MainApp extends Application {
 
