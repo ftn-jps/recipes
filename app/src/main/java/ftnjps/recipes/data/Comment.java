@@ -21,6 +21,11 @@ public class Comment implements Serializable {
 
     public Comment() {}
 
+    public Comment(Long recipeId, String content) {
+        this.recipeId = recipeId;
+        this.content = content;
+    }
+
     public Long getId() {
         return id;
     }

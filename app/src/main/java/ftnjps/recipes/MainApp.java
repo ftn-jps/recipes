@@ -97,6 +97,7 @@ public class MainApp extends Application {
         ComponentName componentName = new ComponentName(this, DatabaseJobService.class);
         JobInfo jobInfoObj = new JobInfo.Builder(1, componentName)
                 .setPeriodic(JOB_REFRESH_INTERVAL)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .build();
 
         JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
@@ -108,7 +109,4 @@ public class MainApp extends Application {
         }
     }
 
-    public void cancelJob() {
-        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
-    }
 }
