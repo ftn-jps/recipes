@@ -58,6 +58,7 @@ public class RecipeActivity extends AppCompatActivity
 
         Recipe r = new Recipe(recipeImgURL, recipeTitle, recipeDescription, recipeDifficulty, Integer.parseInt(recipeNumberOfPeople), Integer.parseInt(recipeTimeOfPreparation),
                 recipePreparationSteps, new Date(), Double.parseDouble(latitude), Double.parseDouble(longitude));
+        r.setId(Long.parseLong(recipeId));
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -65,15 +66,17 @@ public class RecipeActivity extends AppCompatActivity
 
         Tab1Fragment tab1Fragment = new Tab1Fragment();
         Tab2Fragment tab2Fragment = new Tab2Fragment();
+        Tab3Fragment tab3Fragment = new Tab3Fragment();
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("recipe", r);
         tab1Fragment.setArguments(bundle);
         tab2Fragment.setArguments(bundle);
+        tab3Fragment.setArguments(bundle);
 
         adapter.addFragment(tab1Fragment, "Recept");
         adapter.addFragment(tab2Fragment, "Poreklo jela");
-        adapter.addFragment(new Tab3Fragment(), "Komentari");
+        adapter.addFragment(tab3Fragment, "Komentari");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 

@@ -17,7 +17,7 @@ public interface CommentDao {
     Comment findById(Long comment_id);
 
     @Query("SELECT * FROM comment WHERE recipeId = :recipe_id")
-    Comment findByRecipeId(Long recipe_id);
+    List<Comment> findByRecipeId(Long recipe_id);
 
     @Insert
     void insertAll(Comment... comments);
