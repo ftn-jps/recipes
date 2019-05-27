@@ -1,4 +1,4 @@
-package ftnjps.recipes;
+package ftnjps.recipes.main_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import ftnjps.recipes.R;
+import ftnjps.recipes.RecipeActivity;
+import ftnjps.recipes.RecipesListAdapter;
+import ftnjps.recipes.SettingsActivity;
 import ftnjps.recipes.data.DatabaseInstance;
 import ftnjps.recipes.data.Recipe;
 
