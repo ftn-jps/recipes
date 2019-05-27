@@ -36,10 +36,10 @@ public class DatabaseJobService extends JobService {
                 Log.d(TAG, "Job running...");
                 // KONEKCIJA SA FIREBASE
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("recipes");
+                DatabaseReference recipesRef = database.getReference("recipes");
 
                 // LISTENER KOJI POKUPI RECEPTE SA FIREBASE-A I SMESTI IH U BAZU
-                myRef.addChildEventListener(new ChildEventListener() {
+                recipesRef.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         Recipe r = dataSnapshot.getValue(Recipe.class);
@@ -55,6 +55,48 @@ public class DatabaseJobService extends JobService {
                             }
                         }
                         //DatabaseInstance.getInstance(getApplicationContext()).recipeDao().deleteAll();
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                DatabaseReference commentsRef = database.getReference("comments");
+
+                // LISTENER KOJI POKUPI KOMENTARE SA FIREBASE-A I SMESTI IH U BAZU
+                commentsRef.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        Comment c = dataSnapshot.getValue(Comment.class);
+                        if(DatabaseInstance.getInstance(getApplicationContext()).commentDao().findById(c.getId()) == null) {
+                            try {
+                                DatabaseInstance.getInstance(getApplicationContext()).commentDao().insertOne(c);
+                            } catch (SQLiteConstraintException uniqueConstraintException) {
+                                System.out.println("COMMENT ALREADY EXISTS IN THE DATABASE");
+                                uniqueConstraintException.printStackTrace();
+                            } catch (Exception e) {
+                                System.out.println("EXCEPTION WHEN ADDING NEW COMMENT IN THE DATABASE");
+                                e.printStackTrace();
+                            }
+                        }
+                        //DatabaseInstance.getInstance(getApplicationContext()).commentDao().deleteAll();
                     }
 
                     @Override
