@@ -1,4 +1,4 @@
-package ftnjps.recipes;
+package ftnjps.recipes.detail_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
+import ftnjps.recipes.R;
 import ftnjps.recipes.data.Recipe;
 import ftnjps.recipes.settings_activity.SettingsActivity;
 

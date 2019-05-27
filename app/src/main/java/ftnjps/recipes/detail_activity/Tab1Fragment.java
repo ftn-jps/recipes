@@ -1,4 +1,4 @@
-package ftnjps.recipes;
+package ftnjps.recipes.detail_activity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.text.SimpleDateFormat;
 
 import androidx.fragment.app.Fragment;
+import ftnjps.recipes.R;
 import ftnjps.recipes.data.Recipe;
 
 public class Tab1Fragment extends Fragment {

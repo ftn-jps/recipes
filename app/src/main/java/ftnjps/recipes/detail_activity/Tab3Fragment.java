@@ -1,4 +1,4 @@
-package ftnjps.recipes;
+package ftnjps.recipes.detail_activity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import ftnjps.recipes.R;
 
 public class Tab3Fragment extends Fragment {
     @Override

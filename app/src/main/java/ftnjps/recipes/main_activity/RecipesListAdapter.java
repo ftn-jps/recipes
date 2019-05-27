@@ -1,4 +1,4 @@
-package ftnjps.recipes;
+package ftnjps.recipes.main_activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +23,9 @@ import java.util.ArrayList;
 
 
 import androidx.annotation.NonNull;
+import ftnjps.recipes.R;
 import ftnjps.recipes.data.Recipe;
+import ftnjps.recipes.detail_activity.RecipeActivity;
 
 public class RecipesListAdapter extends ArrayAdapter<Recipe> {
 

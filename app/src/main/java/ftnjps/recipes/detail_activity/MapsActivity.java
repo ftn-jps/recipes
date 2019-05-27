@@ -1,6 +1,7 @@
-package ftnjps.recipes;
+package ftnjps.recipes.detail_activity;
 
 import androidx.fragment.app.FragmentActivity;
+import ftnjps.recipes.R;
 
 import android.os.Bundle;
 
