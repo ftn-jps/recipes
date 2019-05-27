@@ -1,4 +1,4 @@
-package ftnjps.recipes;
+package ftnjps.recipes.data;
 
 
 import java.util.Date;

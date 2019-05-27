@@ -1,4 +1,4 @@
-package ftnjps.recipes;
+package ftnjps.recipes.settings_activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
