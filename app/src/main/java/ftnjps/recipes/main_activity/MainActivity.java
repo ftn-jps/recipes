@@ -1,4 +1,4 @@
-package ftnjps.recipes;
+package ftnjps.recipes.main_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,34 +6,31 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import ftnjps.recipes.R;
+import ftnjps.recipes.detail_activity.RecipeActivity;
+import ftnjps.recipes.settings_activity.SettingsActivity;
+import ftnjps.recipes.data.DatabaseInstance;
+import ftnjps.recipes.data.Recipe;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ListView mListView;
     private ArrayList<Recipe> mRecipes = new ArrayList<Recipe>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,45 +48,12 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // KONEKCIJA SA FIREBASE
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("recipes");
+        mRecipes = new ArrayList(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().getAll());
 
-        // KREIRANJE LISTE RECEPATA POKUPLJENIH SA FIREBASE-A
+        // KREIRANJE LISTE RECEPATA POKUPLJENIH IZ BAZE
         mListView = findViewById(R.id.recipesListView);
-        //final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mRecipes);
         final RecipesListAdapter adapter = new RecipesListAdapter(this, R.layout.adapter_view_layout, mRecipes);
         mListView.setAdapter(adapter);
-
-        // LISTENER KOJI POKUPI RECEPTE SA FIREBASE-A I SMESTI IH U LISTU KOJA JE PROSLEDNJEA LISTVIEW-U
-        myRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Recipe r = dataSnapshot.getValue(Recipe.class);
-                mRecipes.add(r);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         // NA KLIK JEDNOG RECEPTA IZ LISTE OTVARA SE DETAILVIEW RECEPTA
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -153,19 +117,7 @@ public class MainActivity extends AppCompatActivity
                 new Date(),
                 18.8792,
                 47.5079
-        );
-
-
-
-        // adding to Firebase database as 1 value
-        // myRef.setValue(r1);
-
-        // ADDING TO FIREBASE TO RECIPES LIST
-        myRef.push().setValue(r1);
-        myRef.push().setValue(r2);
-        myRef.push().setValue(r3);
-        myRef.push().setValue(r4);
-        myRef.push().setValue(r5);*/
+        );*/
     }
 
     @Override

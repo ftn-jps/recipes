@@ -1,4 +1,4 @@
-package ftnjps.recipes;
+package ftnjps.recipes.settings_activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 
 import androidx.core.app.NavUtils;
+import ftnjps.recipes.R;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ftnjps.recipes;
+package ftnjps.recipes.detail_activity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import androidx.fragment.app.Fragment;
+import ftnjps.recipes.R;
+import ftnjps.recipes.data.Recipe;
 
 public class Tab2Fragment extends Fragment implements OnMapReadyCallback {
 

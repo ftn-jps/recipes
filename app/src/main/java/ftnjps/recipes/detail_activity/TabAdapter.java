@@ -1,4 +1,4 @@
-package ftnjps.recipes;
+package ftnjps.recipes.detail_activity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,17 @@
-package ftnjps.recipes;
+package ftnjps.recipes.data;
 
 import java.io.Serializable;
 import java.util.Date;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Recipe implements Serializable {
 
-    private static Long id_counter = 1l;
+    //private static Long id_counter = 1l;
 
+    @PrimaryKey(autoGenerate = true)
     private Long id;
     private String imgURL;
     private String title;
@@ -30,19 +35,11 @@ public class Recipe implements Serializable {
         this.numberOfPeople = numberOfPeople;
         this.timeOfPreparation = timeOfPreparation;
         this.preparationSteps = preparationSteps;
-        this.id = id_counter++;
         this.creationDate = creationDate;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public static Long getId_counter() {
-        return id_counter;
-    }
-
-    public static void setId_counter(Long id_counter) {
-        Recipe.id_counter = id_counter;
-    }
 
     public String getTitle() {
         return title;

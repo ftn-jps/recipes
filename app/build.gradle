@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "ftnjps.recipes"
-        minSdkVersion 19
+        minSdkVersion 25
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -32,10 +32,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:17.0.0'
     implementation 'com.google.firebase:firebase-auth:17.0.0'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation "androidx.room:room-runtime:2.1.0-alpha07"
+    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha07"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
-
 }
 
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
