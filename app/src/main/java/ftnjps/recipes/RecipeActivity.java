@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import ftnjps.recipes.data.Recipe;
+import ftnjps.recipes.settings_activity.SettingsActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;

@@ -15,7 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import ftnjps.recipes.R;
 import ftnjps.recipes.RecipeActivity;
 import ftnjps.recipes.RecipesListAdapter;
-import ftnjps.recipes.SettingsActivity;
+import ftnjps.recipes.settings_activity.SettingsActivity;
 import ftnjps.recipes.data.DatabaseInstance;
 import ftnjps.recipes.data.Recipe;
 
