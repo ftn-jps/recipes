@@ -7,11 +7,13 @@ import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import ftnjps.recipes.R;
 import ftnjps.recipes.detail_activity.RecipeActivity;
 import ftnjps.recipes.settings_activity.SettingsActivity;
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity
 
     private ListView mListView;
     private ArrayList<Recipe> mRecipes = new ArrayList<Recipe>();
-
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,16 @@ public class MainActivity extends AppCompatActivity
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 MainActivity.this.startActivity(myIntent);
+            }
+        });
+
+        // NA REFRESH SE UPDATE PRIKAZ
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 

@@ -79,6 +79,9 @@ public class MainApp extends Application {
             }
         });
 
+        myRef = null;
+
+
         // NAKON STO PRVI PUT POKUPI SVE I SMESTI U BAZU, NAKON TOGA NA SVAKIH 15 MIN PROVERAVA
         scheduleJob();
 

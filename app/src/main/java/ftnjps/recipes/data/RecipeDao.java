@@ -6,6 +6,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 import ftnjps.recipes.data.Recipe;
 
 @Dao
@@ -28,4 +29,7 @@ public interface RecipeDao {
 
     @Query("DELETE FROM recipe")
     void deleteAll();
+
+    @Update
+    void update(Recipe recipe);
 }

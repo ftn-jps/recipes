@@ -42,6 +42,7 @@ public class DatabaseJobService extends JobService {
                 recipesRef.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        System.out.println("DatabaseJobService onChildAdded");
                         Recipe r = dataSnapshot.getValue(Recipe.class);
                         if(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().findById(r.getId()) == null) {
                             try {
@@ -59,12 +60,40 @@ public class DatabaseJobService extends JobService {
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                        System.out.println("DatabaseJobService onChildChanged");
+                        Recipe r = dataSnapshot.getValue(Recipe.class);
+                        System.out.println("DatabaseJobService child changed with ID: " + r.getId());
+                        if(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().findById(r.getId()) != null) {
+                            try {
+                                DatabaseInstance.getInstance(getApplicationContext()).recipeDao().update(r);
+                                System.out.println("DatabaseJobService onChildChanged" + r.getDifficulty());
+                                System.out.println("DatabaseJobService onChildChanged" + DatabaseInstance.getInstance(getApplicationContext()).recipeDao().findById(r.getId()).getDifficulty());
+                            } catch (SQLiteConstraintException uniqueConstraintException) {
+                                System.out.println("RECIPE ALREADY EXISTS IN THE DATABASE");
+                                uniqueConstraintException.printStackTrace();
+                            } catch (Exception e) {
+                                System.out.println("EXCEPTION WHEN ADDING NEW RECIPE IN THE DATABASE");
+                                e.printStackTrace();
+                            }
+                        }
                     }
 
                     @Override
                     public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                        System.out.println("DatabaseJobService onChildRemoved");
+                        Recipe r = dataSnapshot.getValue(Recipe.class);
+                        System.out.println("DatabaseJobService child removed with ID: " + r.getId());
+                        if(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().findById(r.getId()) != null) {
+                            try {
+                                DatabaseInstance.getInstance(getApplicationContext()).recipeDao().delete(r);
+                            } catch (SQLiteConstraintException uniqueConstraintException) {
+                                System.out.println("RECIPE ALREADY EXISTS IN THE DATABASE");
+                                uniqueConstraintException.printStackTrace();
+                            } catch (Exception e) {
+                                System.out.println("EXCEPTION WHEN ADDING NEW RECIPE IN THE DATABASE");
+                                e.printStackTrace();
+                            }
+                        }
                     }
 
                     @Override
