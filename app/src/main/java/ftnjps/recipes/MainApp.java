@@ -43,10 +43,12 @@ public class MainApp extends Application {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Recipe r = dataSnapshot.getValue(Recipe.class);
+                System.out.println("MainApp onChildAdded" + r.getId());
                 if(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().findById(r.getId()) == null) {
                     try {
                         // KADA SE POKUPI OBJEKAT SA FIREBASE-A, PROVERI SE ID DA LI POSTOJI TAKAV U BAZI, I SMESTA SE
                         r.setCreationDate(new Date());
+                        System.out.println("MainApp onChildAdded");
                         DatabaseInstance.getInstance(getApplicationContext()).recipeDao().insertOne(r);
                     } catch (SQLiteConstraintException uniqueConstraintException) {
                         System.out.println("RECIPE ALREADY EXISTS IN THE DATABASE");
@@ -60,12 +62,41 @@ public class MainApp extends Application {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                System.out.println("MainApp onChildChanged");
+                Recipe r = dataSnapshot.getValue(Recipe.class);
+                System.out.println("MainApp child changed with ID: " + r.getId());
+                if(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().findById(r.getId()) != null) {
+                    try {
+                        DatabaseInstance.getInstance(getApplicationContext()).recipeDao().update(r);
+                        System.out.println("MainApp onChildChanged" + r.getDifficulty());
+                        System.out.println("MainApp onChildChanged" + DatabaseInstance.getInstance(getApplicationContext()).recipeDao().findById(r.getId()).getDifficulty());
+                    } catch (SQLiteConstraintException uniqueConstraintException) {
+                        System.out.println("RECIPE ALREADY EXISTS IN THE DATABASE");
+                        uniqueConstraintException.printStackTrace();
+                    } catch (Exception e) {
+                        System.out.println("EXCEPTION WHEN ADDING NEW RECIPE IN THE DATABASE");
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                System.out.println("MainApp onChildRemoved");
+                Recipe r = dataSnapshot.getValue(Recipe.class);
+                System.out.println("MainApp child removed with ID: " + r.getId());
+                if(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().findById(r.getId()) != null) {
+                    try {
+                        System.out.println("MainApp onChildRemoved deleting...");
+                        DatabaseInstance.getInstance(getApplicationContext()).recipeDao().delete(r);
+                    } catch (SQLiteConstraintException uniqueConstraintException) {
+                        System.out.println("RECIPE ALREADY EXISTS IN THE DATABASE");
+                        uniqueConstraintException.printStackTrace();
+                    } catch (Exception e) {
+                        System.out.println("EXCEPTION WHEN ADDING NEW RECIPE IN THE DATABASE");
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
@@ -78,9 +109,6 @@ public class MainApp extends Application {
 
             }
         });
-
-        myRef = null;
-
 
         // NAKON STO PRVI PUT POKUPI SVE I SMESTI U BAZU, NAKON TOGA NA SVAKIH 15 MIN PROVERAVA
         scheduleJob();

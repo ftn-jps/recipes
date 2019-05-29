@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     private ListView mListView;
     private ArrayList<Recipe> mRecipes = new ArrayList<Recipe>();
     private SwipeRefreshLayout swipeRefreshLayout;
+    private RecipesListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,33 +51,14 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mRecipes = new ArrayList(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().getAll());
+
 
         // KREIRANJE LISTE RECEPATA POKUPLJENIH IZ BAZE
         mListView = findViewById(R.id.recipesListView);
-        final RecipesListAdapter adapter = new RecipesListAdapter(this, R.layout.adapter_view_layout, mRecipes);
-        mListView.setAdapter(adapter);
-
-        // NA KLIK JEDNOG RECEPTA IZ LISTE OTVARA SE DETAILVIEW RECEPTA
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent myIntent = new Intent(MainActivity.this, RecipeActivity.class);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                MainActivity.this.startActivity(myIntent);
-            }
-        });
 
         // NA REFRESH SE UPDATE PRIKAZ
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                adapter.notifyDataSetChanged();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+
 
         /*Recipe r1 = new Recipe("drawable://" + R.drawable.beer_ribs, "Rebarca pecena u rerni sa crnim pivom",
                 "Pripremati sa srcem, paziti da ne pregori i da se ne popije pivo.",
@@ -130,6 +112,49 @@ public class MainActivity extends AppCompatActivity
                 18.8792,
                 47.5079
         );*/
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mRecipes = new ArrayList(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().getAll());
+        adapter = new RecipesListAdapter(this, R.layout.adapter_view_layout, mRecipes);
+        mListView.setAdapter(adapter);
+
+        // NA KLIK JEDNOG RECEPTA IZ LISTE OTVARA SE DETAILVIEW RECEPTA
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent myIntent = new Intent(MainActivity.this, RecipeActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                MainActivity.this.startActivity(myIntent);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                mRecipes = new ArrayList(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().getAll());
+                adapter = new RecipesListAdapter(MainActivity.this, R.layout.adapter_view_layout, mRecipes);
+                mListView.setAdapter(adapter);
+
+                // NA KLIK JEDNOG RECEPTA IZ LISTE OTVARA SE DETAILVIEW RECEPTA
+                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent myIntent = new Intent(MainActivity.this, RecipeActivity.class);
+                        myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        MainActivity.this.startActivity(myIntent);
+                    }
+                });
+
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     @Override
