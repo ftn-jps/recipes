@@ -55,7 +55,7 @@ public class Tab1Fragment extends Fragment {
 
         textViewRecipeDifficultyPersonsTime.setText(difficultyPersonsTime);
         textViewRecipeTitle.setText(r.getTitle());
-        textViewRecipeDescription.setText(r.getRecipeDescription());
+        textViewRecipeDescription.setText("\"" + r.getDescription() + "\"");
 
         try {
             textViewRecipeCreationDate.setText(format.format(r.getCreationDate()));

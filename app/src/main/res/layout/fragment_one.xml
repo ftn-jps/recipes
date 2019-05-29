@@ -10,70 +10,91 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:id="@+id/textViewRecipeTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="262dp"
+                android:layout_height="85dp"
+                android:layout_marginTop="8dp"
                 android:text="TextView"
-                android:layout_centerHorizontal="true"
+                android:textColor="#960909"
                 android:textSize="28sp" />
-
-            <ImageView
-                android:id="@+id/imageViewRecipe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewRecipeTitle"
-                android:scaleType="fitXY"
-                android:adjustViewBounds="true"/>
-
-            <TextView
-                android:id="@+id/textViewRecipeDifficultyPersonsTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imageViewRecipe"
-                android:layout_centerHorizontal="true"
-                android:text="TextView"
-                android:layout_marginTop="20dp"
-                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textViewRecipeCreationDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textViewRecipeDifficultyPersonsTime"
+                android:layout_above="@id/imageViewRecipe"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="-299dp"
+                android:layout_marginRight="5dp"
                 android:text="TextView"
-                android:layout_marginTop="10dp"
-                android:textSize="16sp" />
+                android:textSize="14dp"
+                android:textStyle="bold|italic" />
+
+            <ImageView
+                android:id="@+id/imageViewRecipe"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_below="@id/textViewRecipeTitle"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/textViewRecipeDescription"
+                android:layout_width="406dp"
+                android:layout_height="64dp"
+                android:layout_below="@id/imageViewRecipe"
+                android:layout_marginTop="12dp"
+                android:text="TextView"
+                android:textColor="#6d6b6b"
+                android:textSize="18sp"
+                android:textStyle="italic" />
+
+            <View
+                android:id="@+id/viewHorizontalLine"
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/textViewRecipeDescription"
+                android:layout_marginTop="11dp"
+                android:background="#c0c0c0" />
+
+
+            <TextView
+                android:id="@+id/textViewRecipeDifficultyPersonsTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textViewRecipeCreationDate"
-                android:layout_centerHorizontal="true"
+                android:layout_below="@id/viewHorizontalLine"
+                android:layout_marginTop="12dp"
                 android:text="TextView"
-                android:textSize="18sp"
-                android:layout_marginTop="30dp"
-                android:textStyle="italic" />
+                android:textSize="18sp" />
+
+            <View
+                android:id="@+id/viewHorizontalLine2"
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/textViewRecipeDifficultyPersonsTime"
+                android:layout_marginTop="18dp"
+                android:background="#c0c0c0" />
 
             <TextView
                 android:id="@+id/textViewPriprema"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textViewRecipeDescription"
+                android:layout_below="@id/viewHorizontalLine2"
+                android:layout_marginTop="12dp"
                 android:text="Priprema:"
-                android:layout_marginTop="30dp"
                 android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/textViewRecipePreparationSteps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:layout_below="@id/textViewPriprema" />
+                android:layout_below="@id/textViewPriprema"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/buttonRecipe"

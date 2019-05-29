@@ -15,9 +15,10 @@
     <!--android:text="Button" />-->
     <SearchView
         android:id="@+id/simpleSearchView"
-        android:layout_width="162dp"
-        android:layout_height="87dp"
-        android:layout_marginStart="232dp"
+        android:layout_width="361dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
         android:clickable="true"
         android:gravity="end"
         android:orientation="vertical"
@@ -27,8 +28,8 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swiperefresh"
-        android:layout_width="409dp"
-        android:layout_height="470dp"
+        android:layout_width="395dp"
+        android:layout_height="515dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:paddingStart="16dp"
@@ -43,26 +44,10 @@
             android:id="@+id/recipesListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="50dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="229dp"
-        android:layout_height="71dp"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="left"
-        android:paddingTop="16dp"
-        android:text="Novi recepti"
-        android:textAlignment="center"
-        android:textColor="#960909"
-        android:textSize="32dp"
-        tools:layout_editor_absoluteX="-11dp"
-        tools:layout_editor_absoluteY="16dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
