@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     private ListView mListView;
     private ArrayList<Recipe> mRecipes = new ArrayList<Recipe>();
     private SwipeRefreshLayout swipeRefreshLayout;
+    private SearchView mSearchView;
     private RecipesListAdapter adapter;
 
     @Override
@@ -55,6 +57,66 @@ public class MainActivity extends AppCompatActivity
 
         // KREIRANJE LISTE RECEPATA POKUPLJENIH IZ BAZE
         mListView = findViewById(R.id.recipesListView);
+
+
+        mSearchView = findViewById(R.id.simpleSearchView);
+        mSearchView.requestFocus(0, null);
+//        mSearchView.setIconified(false);
+
+
+        mSearchView.setOnQueryTextListener( new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+
+            @Override
+            @SuppressWarnings("unchecked")
+            public boolean onQueryTextSubmit(String query) {
+                mRecipes = new ArrayList(
+                    DatabaseInstance
+                        .getInstance(getApplicationContext())
+                        .recipeDao()
+                        .getWithFilter("%"+query+"%")
+                );
+                adapter = new RecipesListAdapter(MainActivity.this, R.layout.adapter_view_layout, mRecipes);
+                mListView.setAdapter(adapter);
+
+                return true;
+            }
+        });
+
+
+        mSearchView = findViewById(R.id.simpleSearchView);
+        mSearchView.requestFocus(0, null);
+//        mSearchView.setIconified(false);
+
+
+        mSearchView.setOnQueryTextListener( new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+
+            @Override
+            @SuppressWarnings("unchecked")
+            public boolean onQueryTextSubmit(String query) {
+                System.out.println("AAAAAAAAAAAAAAAA");
+                mRecipes = new ArrayList(
+                    DatabaseInstance
+                        .getInstance(getApplicationContext())
+                        .recipeDao()
+                        .getWithFilter("%"+query+"%")
+                );
+
+               for( Recipe r: mRecipes) {
+                   System.out.println(r.getTitle());
+               }
+
+                adapter.notifyDataSetChanged();
+                return true;
+            }
+        });
 
         // NA REFRESH SE UPDATE PRIKAZ
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);

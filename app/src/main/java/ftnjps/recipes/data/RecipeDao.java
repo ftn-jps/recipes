@@ -15,6 +15,9 @@ public interface RecipeDao {
     @Query("SELECT * FROM recipe")
     List<Recipe> getAll();
 
+    @Query("SELECT * FROM recipe WHERE title LIKE :search")
+    List<Recipe> getWithFilter(final String search);
+
     @Query("SELECT * FROM recipe WHERE id = :recipe_id")
     Recipe findById(Long recipe_id);
 

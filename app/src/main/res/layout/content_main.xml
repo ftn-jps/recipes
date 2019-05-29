@@ -9,20 +9,60 @@
     tools:showIn="@layout/app_bar_main">
 
     <!--<Button-->
-        <!--android:id="@+id/button2"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Button" />-->
+    <!--android:id="@+id/button2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Button" />-->
+    <SearchView
+        android:id="@+id/simpleSearchView"
+        android:layout_width="162dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="232dp"
+        android:clickable="true"
+        android:gravity="end"
+        android:orientation="vertical"
+        android:pointerIcon="no_drop"
+        app:layout_constraintStart_toStartOf="@+id/swiperefresh"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swiperefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <ListView
-        android:id="@+id/recipesListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="29dp" />
+        android:layout_width="409dp"
+        android:layout_height="470dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ListView
+            android:id="@+id/recipesListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="50dp" />
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="229dp"
+        android:layout_height="71dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="left"
+        android:paddingTop="16dp"
+        android:text="Novi recepti"
+        android:textAlignment="center"
+        android:textColor="#960909"
+        android:textSize="32dp"
+        tools:layout_editor_absoluteX="-11dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
