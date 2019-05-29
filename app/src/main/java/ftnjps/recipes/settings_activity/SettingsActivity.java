@@ -53,16 +53,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 // For list preferences, look up the correct display value in
                 // the preference's 'entries' list.
                 ListPreference listPreference = (ListPreference) preference;
-                int index = listPreference.findIndexOfValue(stringValue);
+                               int index = listPreference.findIndexOfValue(stringValue);
 
                 // OVDE PODESAVAM U SETTINGS-U NA KOLIKO MINUTA CE BITI SCHEDULED JOB
-                if(Integer.parseInt((listPreference.getEntryValues()[index]).toString()) != -1) {
-                    System.out.println("Promena frekvencije provere podataka...");
-                    System.out.println(Integer.parseInt((listPreference.getEntryValues()[index]).toString()));
-                } else {
-                    System.out.println("Ukidanje provere podataka...");
-                    System.out.println(Integer.parseInt((listPreference.getEntryValues()[index]).toString()));
-                }
+//                if(Integer.parseInt((listPreference.getEntryValues()[index]).toString()) != -1) {
+//                    System.out.println("Promena frekvencije provere podataka...");
+//                    System.out.println(Integer.parseInt((listPreference.getEntryValues()[index]).toString()));
+//                } else {
+//                    System.out.println("Ukidanje provere podataka...");
+//                    System.out.println(Integer.parseInt((listPreference.getEntryValues()[index]).toString()));
+//                }
 
                 // Set the summary to reflect the new value.
                 preference.setSummary(
