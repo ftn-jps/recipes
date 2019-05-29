@@ -1,12 +1,19 @@
 package ftnjps.recipes.detail_activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerFragment;
+import com.google.android.youtube.player.YouTubePlayerView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -15,6 +22,7 @@ import java.text.SimpleDateFormat;
 import androidx.fragment.app.Fragment;
 import ftnjps.recipes.R;
 import ftnjps.recipes.data.Recipe;
+import ftnjps.recipes.main_activity.MainActivity;
 
 public class Tab1Fragment extends Fragment {
 
@@ -24,6 +32,8 @@ public class Tab1Fragment extends Fragment {
     private TextView textViewRecipeCreationDate;
     private TextView textViewRecipeDescription;
     private ImageView imageViewRecipe;
+    private Button buttonRecipe;
+    private YouTubePlayerView youTubePlayerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,7 +85,51 @@ public class Tab1Fragment extends Fragment {
         //download and display image from url
         imageLoader.displayImage(r.getImgURL(), imageViewRecipe, options);
 
+        buttonRecipe = (Button) v.findViewById(R.id.buttonRecipe);
+        buttonRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent( getContext(), YoutubeActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                getContext().startActivity(myIntent);
+            }
+        });
+
+
+//        youTubePlayerView.initialize("AIzaSyAWagectLCtVcaLMzG7r7i6Yw6DhTH_BXU",
+//                new YouTubePlayer.OnInitializedListener() {
+//                    @Override
+//                    public void onInitializationSuccess(YouTubePlayer.Provider provider,
+//                                                        YouTubePlayer youTubePlayer, boolean b) {
+//                        youTubePlayer.cueVideo("iJbTQGsFcFU");
+//                    }
+//
+//                    @Override
+//                    public void onInitializationFailure(YouTubePlayer.Provider provider,
+//                                                        YouTubeInitializationResult youTubeInitializationResult) {
+//
+//                    }
+//                });
 
         return v;
+    }
+
+    public void playVideo(final String videoId, YouTubePlayerView youTubePlayerView) {
+        //initialize youtube player view
+        youTubePlayerView.initialize("AIzaSyAWagectLCtVcaLMzG7r7i6Yw6DhTH_BXU",
+                new YouTubePlayer.OnInitializedListener() {
+                    @Override
+                    public void onInitializationSuccess(YouTubePlayer.Provider provider,
+                                                        YouTubePlayer youTubePlayer, boolean b) {
+                        youTubePlayer.cueVideo(videoId);
+                    }
+
+                    @Override
+                    public void onInitializationFailure(YouTubePlayer.Provider provider,
+                                                        YouTubeInitializationResult youTubeInitializationResult) {
+
+                    }
+                });
     }
 }
