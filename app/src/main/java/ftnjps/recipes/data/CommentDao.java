@@ -23,7 +23,7 @@ public interface CommentDao {
     void insertAll(Comment... comments);
 
     @Insert
-    void insertOne(Comment comment);
+    long insertOne(Comment comment);
 
     @Delete
     void delete(Comment comment);
