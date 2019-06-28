@@ -36,6 +36,7 @@ public class Tab3Fragment extends Fragment {
             public void onClick(View v) {
                 TextView commentEdit = view.findViewById(R.id.commentEdit);
                 String commentContent = commentEdit.getText().toString();
+                commentEdit.setText("");
                 if(commentContent.isEmpty())
                     return;
                 Comment comment = new Comment(mRecipe.getId(), commentContent);
