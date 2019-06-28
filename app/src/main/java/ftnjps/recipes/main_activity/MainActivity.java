@@ -284,7 +284,23 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_favorites) {
-            // Handle the favorites action
+            mRecipes = new ArrayList(
+                    DatabaseInstance
+                            .getInstance(getApplicationContext())
+                            .recipeDao()
+                            .findFavorites()
+            );
+            adapter = new RecipesListAdapter(MainActivity.this, R.layout.adapter_view_layout, mRecipes);
+            mListView.setAdapter(adapter);
+        } else if (id == R.id.nav_recipes) {
+            mRecipes = new ArrayList(
+                    DatabaseInstance
+                            .getInstance(getApplicationContext())
+                            .recipeDao()
+                            .getAll()
+            );
+            adapter = new RecipesListAdapter(MainActivity.this, R.layout.adapter_view_layout, mRecipes);
+            mListView.setAdapter(adapter);
         } else if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);

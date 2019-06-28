@@ -79,4 +79,5 @@
     <string name="title_activity_recipe">Recipe</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_youtube">YoutubeActivity</string>
+    <string name="action_recipes">All recipes</string>
 </resources>
