@@ -3,6 +3,7 @@ package ftnjps.recipes.main_activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
+        System.out.println("MAIN ACTIVITY STARTED");
 
         // KREIRANJE LISTE RECEPATA POKUPLJENIH IZ BAZE
         mListView = findViewById(R.id.recipesListView);
@@ -101,7 +102,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             @SuppressWarnings("unchecked")
             public boolean onQueryTextSubmit(String query) {
-                System.out.println("AAAAAAAAAAAAAAAA");
                 mRecipes = new ArrayList(
                     DatabaseInstance
                         .getInstance(getApplicationContext())
@@ -174,6 +174,31 @@ public class MainActivity extends AppCompatActivity
                 18.8792,
                 47.5079
         );*/
+
+        Handler mHandler = new Handler();
+        if(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().getAll().size() == 0) {
+            mHandler.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    mRecipes = new ArrayList(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().getAll());
+                    adapter = new RecipesListAdapter(MainActivity.this, R.layout.adapter_view_layout, mRecipes);
+                    mListView.setAdapter(adapter);
+
+                    // NA KLIK JEDNOG RECEPTA IZ LISTE OTVARA SE DETAILVIEW RECEPTA
+                    mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent myIntent = new Intent(MainActivity.this, RecipeActivity.class);
+                            myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            MainActivity.this.startActivity(myIntent);
+                        }
+                    });
+                }
+
+            }, 2000L);
+        }
     }
 
     @Override

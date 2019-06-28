@@ -33,7 +33,7 @@ public class YoutubeActivity extends YouTubeBaseActivity {
                                                         YouTubePlayer youTubePlayer, boolean b) {
                         youTubePlayer.cueVideo("Pf03vpxk96M");
                     }
-                    
+
                     @Override
                     public void onInitializationFailure(YouTubePlayer.Provider provider,
                                                         YouTubeInitializationResult youTubeInitializationResult) {
