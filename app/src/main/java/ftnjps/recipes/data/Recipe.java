@@ -24,6 +24,7 @@ public class Recipe implements Serializable {
     private Date creationDate;
     private Double latitude;
     private Double longitude;
+    private boolean isFavorite = false;
 
     public Recipe() {
     }
@@ -144,6 +145,14 @@ public class Recipe implements Serializable {
 
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
 
 }

@@ -57,10 +57,12 @@ public class RecipeActivity extends AppCompatActivity
         String longitude = getIntent().getStringExtra("RECIPE_LONGITUDE");
         String latitude = getIntent().getStringExtra("RECIPE_LATITUDE");
         String youtubeURL = getIntent().getStringExtra("RECIPE_YOUTUBEURL");
+        String isFavorite = getIntent().getStringExtra("RECIPE_IS_FAVORITE");
 
         Recipe r = new Recipe(recipeImgURL, recipeTitle, recipeDescription, recipeDifficulty, Integer.parseInt(recipeNumberOfPeople), Integer.parseInt(recipeTimeOfPreparation),
                 recipePreparationSteps, new Date(), Double.parseDouble(latitude), Double.parseDouble(longitude), youtubeURL);
         r.setId(Long.parseLong(recipeId));
+        r.setFavorite(Boolean.parseBoolean(isFavorite));
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);

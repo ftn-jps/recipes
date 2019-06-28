@@ -101,7 +101,16 @@
                 android:layout_below="@id/textViewRecipePreparationSteps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="YoutubeVideo"/>
+                android:text="Youtube video"/>
+            <Switch
+                android:id="@+id/switchFavorite"
+                android:layout_below="@id/textViewRecipePreparationSteps"
+                android:layout_toRightOf="@id/buttonRecipe"
+                android:layout_alignBaseline="@id/buttonRecipe"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add to favorites"/>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

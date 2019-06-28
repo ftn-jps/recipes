@@ -133,6 +133,7 @@ public class RecipesListAdapter extends ArrayAdapter<Recipe> {
                     e.printStackTrace();
                 }
                 intent.putExtra("RECIPE_IMAGE_URL", getItem(finalPosition).getImgURL());
+                intent.putExtra("RECIPE_IS_FAVORITE", Boolean.toString(getItem(finalPosition).isFavorite()));
 
                 mContext.startActivity(intent);
                 Toast.makeText(mContext, "Opening recipe...", Toast.LENGTH_SHORT).show();
@@ -160,6 +161,7 @@ public class RecipesListAdapter extends ArrayAdapter<Recipe> {
                     e.printStackTrace();
                 }
                 intent.putExtra("RECIPE_IMAGE_URL", getItem(finalPosition).getImgURL());
+                intent.putExtra("RECIPE_IS_FAVORITE", Boolean.toString(getItem(finalPosition).isFavorite()));
 
                 mContext.startActivity(intent);
                 Toast.makeText(mContext, "Opening recipe...", Toast.LENGTH_SHORT).show();

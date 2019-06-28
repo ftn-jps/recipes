@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -20,6 +22,7 @@ import java.text.SimpleDateFormat;
 
 import androidx.fragment.app.Fragment;
 import ftnjps.recipes.R;
+import ftnjps.recipes.data.DatabaseInstance;
 import ftnjps.recipes.data.Recipe;
 
 public class Tab1Fragment extends Fragment {
@@ -31,6 +34,7 @@ public class Tab1Fragment extends Fragment {
     private TextView textViewRecipeDescription;
     private ImageView imageViewRecipe;
     private Button buttonRecipe;
+    private Switch switchFavorite;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -91,6 +95,18 @@ public class Tab1Fragment extends Fragment {
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 getContext().startActivity(myIntent);
+            }
+        });
+
+        switchFavorite = v.findViewById(R.id.switchFavorite);
+        switchFavorite.setChecked(r.isFavorite());
+        switchFavorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                r.setFavorite(isChecked);
+                DatabaseInstance
+                        .getInstance(getActivity().getApplicationContext())
+                        .recipeDao()
+                        .update(r);
             }
         });
 
