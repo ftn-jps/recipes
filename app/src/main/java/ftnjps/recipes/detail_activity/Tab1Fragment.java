@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -22,7 +21,6 @@ import java.text.SimpleDateFormat;
 import androidx.fragment.app.Fragment;
 import ftnjps.recipes.R;
 import ftnjps.recipes.data.Recipe;
-import ftnjps.recipes.main_activity.MainActivity;
 
 public class Tab1Fragment extends Fragment {
 
@@ -33,13 +31,12 @@ public class Tab1Fragment extends Fragment {
     private TextView textViewRecipeDescription;
     private ImageView imageViewRecipe;
     private Button buttonRecipe;
-    private YouTubePlayerView youTubePlayerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_one, container, false);
-        Recipe r = (Recipe) this.getArguments().getSerializable("recipe");
+        final Recipe r = (Recipe) this.getArguments().getSerializable("recipe");
         final SimpleDateFormat format = new SimpleDateFormat("dd-MM-YYYY");
 
         textViewRecipeTitle = v.findViewById(R.id.textViewRecipeTitle);
@@ -90,46 +87,13 @@ public class Tab1Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent( getContext(), YoutubeActivity.class);
+                myIntent.putExtra("RECIPE_YOUTUBEURL", r.getYoutubeURL());
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 getContext().startActivity(myIntent);
             }
         });
 
-
-//        youTubePlayerView.initialize("AIzaSyAWagectLCtVcaLMzG7r7i6Yw6DhTH_BXU",
-//                new YouTubePlayer.OnInitializedListener() {
-//                    @Override
-//                    public void onInitializationSuccess(YouTubePlayer.Provider provider,
-//                                                        YouTubePlayer youTubePlayer, boolean b) {
-//                        youTubePlayer.cueVideo("iJbTQGsFcFU");
-//                    }
-//
-//                    @Override
-//                    public void onInitializationFailure(YouTubePlayer.Provider provider,
-//                                                        YouTubeInitializationResult youTubeInitializationResult) {
-//
-//                    }
-//                });
-
         return v;
-    }
-
-    public void playVideo(final String videoId, YouTubePlayerView youTubePlayerView) {
-        //initialize youtube player view
-        youTubePlayerView.initialize("AIzaSyAWagectLCtVcaLMzG7r7i6Yw6DhTH_BXU",
-                new YouTubePlayer.OnInitializedListener() {
-                    @Override
-                    public void onInitializationSuccess(YouTubePlayer.Provider provider,
-                                                        YouTubePlayer youTubePlayer, boolean b) {
-                        youTubePlayer.cueVideo(videoId);
-                    }
-
-                    @Override
-                    public void onInitializationFailure(YouTubePlayer.Provider provider,
-                                                        YouTubeInitializationResult youTubeInitializationResult) {
-
-                    }
-                });
     }
 }

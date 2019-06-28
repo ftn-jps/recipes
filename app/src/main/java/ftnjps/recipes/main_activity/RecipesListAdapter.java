@@ -119,6 +119,7 @@ public class RecipesListAdapter extends ArrayAdapter<Recipe> {
                 intent.putExtra("RECIPE_ID", getItem(finalPosition).getId().toString());
                 intent.putExtra("RECIPE_TITLE", getItem(finalPosition).getTitle());
                 intent.putExtra("RECIPE_DESCRIPTION", getItem(finalPosition).getDescription());
+                intent.putExtra("RECIPE_YOUTUBEURL", getItem(finalPosition).getYoutubeURL());
                 intent.putExtra("RECIPE_DIFFICULTY", getItem(finalPosition).getDifficulty());
                 intent.putExtra("RECIPE_PREPARATION_STEPS", getItem(finalPosition).getPreparationSteps());
                 intent.putExtra("RECIPE_NUMBER_OF_PEOPLE", Integer.toString(getItem(finalPosition).getNumberOfPeople()));
@@ -145,6 +146,7 @@ public class RecipesListAdapter extends ArrayAdapter<Recipe> {
                 intent.putExtra("RECIPE_ID", getItem(finalPosition).getId().toString());
                 intent.putExtra("RECIPE_TITLE", getItem(finalPosition).getTitle());
                 intent.putExtra("RECIPE_DESCRIPTION", getItem(finalPosition).getDescription());
+                intent.putExtra("RECIPE_YOUTUBEURL", getItem(finalPosition).getYoutubeURL());
                 intent.putExtra("RECIPE_DIFFICULTY", getItem(finalPosition).getDifficulty());
                 intent.putExtra("RECIPE_PREPARATION_STEPS", getItem(finalPosition).getPreparationSteps());
                 intent.putExtra("RECIPE_NUMBER_OF_PEOPLE", Integer.toString(getItem(finalPosition).getNumberOfPeople()));

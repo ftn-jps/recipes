@@ -25,13 +25,15 @@ public class YoutubeActivity extends YouTubeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_youtube);
         youTubePlayerView = findViewById(R.id.youtubePlayerView);
+        final String recipeYoutubeURL = getIntent().getStringExtra("RECIPE_YOUTUBEURL");
 
         youTubePlayerView.initialize("AIzaSyAWagectLCtVcaLMzG7r7i6Yw6DhTH_BXU",
                 new YouTubePlayer.OnInitializedListener() {
                     @Override
                     public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                                         YouTubePlayer youTubePlayer, boolean b) {
-                        youTubePlayer.cueVideo("Pf03vpxk96M");
+                        youTubePlayer.cueVideo(recipeYoutubeURL);
+                        System.out.println("YOUTUBE " + recipeYoutubeURL);
                     }
 
                     @Override

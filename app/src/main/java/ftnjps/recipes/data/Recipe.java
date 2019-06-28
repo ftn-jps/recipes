@@ -14,6 +14,7 @@ public class Recipe implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private Long id;
     private String imgURL;
+    private String youtubeURL;
     private String title;
     private String description;
     private String difficulty;
@@ -27,7 +28,7 @@ public class Recipe implements Serializable {
     public Recipe() {
     }
 
-    public Recipe(String imgURL, String title, String description, String difficulty, int numberOfPeople, int timeOfPreparation, String preparationSteps, Date creationDate, Double latitude, Double longitude) {
+    public Recipe(String imgURL, String title, String description, String difficulty, int numberOfPeople, int timeOfPreparation, String preparationSteps, Date creationDate, Double latitude, Double longitude, String youtubeURL) {
         this.imgURL = imgURL;
         this.title = title;
         this.description = description;
@@ -38,8 +39,16 @@ public class Recipe implements Serializable {
         this.creationDate = creationDate;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.youtubeURL = youtubeURL;
     }
 
+    public String getYoutubeURL() {
+        return youtubeURL;
+    }
+
+    public void setYoutubeURL(String youtubeURL) {
+        this.youtubeURL = youtubeURL;
+    }
 
     public String getTitle() {
         return title;
