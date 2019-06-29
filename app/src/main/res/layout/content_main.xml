@@ -13,23 +13,68 @@
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:text="Button" />-->
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Search by:"
+        app:layout_constraintStart_toStartOf="@+id/swiperefresh"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioSearch"
+        android:layout_width="396dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/searchName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:checked="false"
+            android:text="Name" />
+
+        <RadioButton
+            android:id="@+id/searchTime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Time" />
+
+        <RadioButton
+            android:id="@+id/searchDifficulty"
+            android:layout_width="106dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Difficulty" />
+
+    </RadioGroup>
+
     <SearchView
         android:id="@+id/simpleSearchView"
-        android:layout_width="361dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="395dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="56dp"
         android:clickable="true"
-        android:gravity="end"
-        android:orientation="vertical"
+        android:focusable="true"
+        android:gravity="center|right|center_horizontal|center_vertical|end"
+        android:orientation="horizontal"
         android:pointerIcon="no_drop"
-        app:layout_constraintStart_toStartOf="@+id/swiperefresh"
+        app:layout_constraintStart_toStartOf="@+id/radioSearch"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swiperefresh"
-        android:layout_width="395dp"
-        android:layout_height="515dp"
+        android:layout_width="394dp"
+        android:layout_height="504dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:paddingStart="16dp"
@@ -48,6 +93,7 @@
             tools:layout_editor_absoluteY="50dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
