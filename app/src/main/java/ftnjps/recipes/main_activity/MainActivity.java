@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -25,18 +24,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SearchView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String SEARCH_NAME = "Name";
+    private static final String SEARCH_TIME = "Time";
+    private static final String SEARCH_DIFFICULTY = "Difficulty";
     private ListView mListView;
     private ArrayList<Recipe> mRecipes = new ArrayList<Recipe>();
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView mSearchView;
     private RecipesListAdapter adapter;
+    private RadioGroup radioSearch;
+    private RadioButton radioName;
+    private RadioButton radioTime;
+    private RadioButton radioDifficulty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +83,57 @@ public class MainActivity extends AppCompatActivity
             @Override
             @SuppressWarnings("unchecked")
             public boolean onQueryTextSubmit(String query) {
-                mRecipes = new ArrayList(
-                    DatabaseInstance
-                        .getInstance(getApplicationContext())
-                        .recipeDao()
-                        .getWithFilter("%"+query+"%")
-                );
+                radioSearch = (RadioGroup) findViewById(R.id.radioSearch);
+                int selectedId = radioSearch.getCheckedRadioButtonId();
+                final RadioButton selectedButton = (RadioButton) findViewById(selectedId);
+                final String selectedSearch = selectedButton.getText() != null
+                    ? selectedButton.getText().toString()
+                    : null;
+
+                switch (selectedSearch) {
+                    case SEARCH_NAME: {
+                        mRecipes = new ArrayList(
+                            DatabaseInstance
+                                .getInstance(getApplicationContext())
+                                .recipeDao()
+                                .getWithNameFilter("%"+query+"%")
+                        );
+                    }
+                    break;
+
+                    case SEARCH_TIME: {
+                        int timeOfPreparation = 0;
+                        try {
+                            timeOfPreparation = Integer.parseInt(query);
+                        } catch (Exception e) {
+                            System.out.println("Bad search value provided! Please enter numerical value");
+                            mRecipes = new ArrayList<>();
+                        }
+
+                        System.out.println(timeOfPreparation);
+                        System.out.println(query);
+                        mRecipes = new ArrayList(
+                            DatabaseInstance
+                                .getInstance(getApplicationContext())
+                                .recipeDao()
+                                .getWithTimeFilter(timeOfPreparation)
+                        );
+                    }
+                    break;
+
+                    case SEARCH_DIFFICULTY: {
+                        mRecipes = new ArrayList(
+                            DatabaseInstance
+                                .getInstance(getApplicationContext())
+                                .recipeDao()
+                                .getWithDifficultyFilter(query)
+                        );
+                    }
+                    break;
+
+                    default: {}
+                }
+
                 adapter = new RecipesListAdapter(MainActivity.this, R.layout.adapter_view_layout, mRecipes);
                 mListView.setAdapter(adapter);
 
@@ -91,33 +145,6 @@ public class MainActivity extends AppCompatActivity
         mSearchView = findViewById(R.id.simpleSearchView);
         mSearchView.requestFocus(0, null);
 //        mSearchView.setIconified(false);
-
-
-        mSearchView.setOnQueryTextListener( new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return true;
-            }
-
-            @Override
-            @SuppressWarnings("unchecked")
-            public boolean onQueryTextSubmit(String query) {
-                mRecipes = new ArrayList(
-                    DatabaseInstance
-                        .getInstance(getApplicationContext())
-                        .recipeDao()
-                        .getWithFilter("%"+query+"%")
-                );
-
-               for( Recipe r: mRecipes) {
-                   System.out.println(r.getTitle());
-               }
-
-                adapter.notifyDataSetChanged();
-                return true;
-            }
-        });
-
         // NA REFRESH SE UPDATE PRIKAZ
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
 

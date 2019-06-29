@@ -16,7 +16,13 @@ public interface RecipeDao {
     List<Recipe> getAll();
 
     @Query("SELECT * FROM recipe WHERE title LIKE :search")
-    List<Recipe> getWithFilter(final String search);
+    List<Recipe> getWithNameFilter(final String search);
+
+    @Query("SELECT * FROM recipe WHERE difficulty LIKE :search")
+    List<Recipe> getWithDifficultyFilter(final String search);
+
+    @Query("SELECT * FROM recipe WHERE timeOfPreparation <= :search")
+    List<Recipe> getWithTimeFilter(final int search);
 
     @Query("SELECT * FROM recipe WHERE isFavorite = 1")
     List<Recipe> findFavorites();
