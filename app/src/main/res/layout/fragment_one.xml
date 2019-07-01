@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ScrollViewRecipe"
@@ -81,10 +82,35 @@
                 android:background="#c0c0c0" />
 
             <TextView
-                android:id="@+id/textViewPriprema"
+                android:id="@+id/textViewSastojci"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/viewHorizontalLine2"
+                android:layout_marginTop="12dp"
+                android:text="Sastojci:"
+                android:textSize="24sp" />
+
+            <ListView
+                android:id="@+id/listViewIngredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewSastojci"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="50dp" />
+
+            <View
+                android:id="@+id/viewHorizontalLine3"
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/listViewIngredients"
+                android:layout_marginTop="18dp"
+                android:background="#c0c0c0" />
+
+            <TextView
+                android:id="@+id/textViewPriprema"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/viewHorizontalLine3"
                 android:layout_marginTop="12dp"
                 android:text="Priprema:"
                 android:textSize="24sp" />

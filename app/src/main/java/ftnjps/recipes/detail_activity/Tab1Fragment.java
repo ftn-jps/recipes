@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -19,11 +20,18 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.SimpleDateFormat;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import androidx.fragment.app.Fragment;
 import ftnjps.recipes.R;
 import ftnjps.recipes.data.DatabaseInstance;
 import ftnjps.recipes.data.Recipe;
+import ftnjps.recipes.main_activity.RecipesListAdapter;
 
 public class Tab1Fragment extends Fragment {
 
@@ -35,6 +43,9 @@ public class Tab1Fragment extends Fragment {
     private ImageView imageViewRecipe;
     private Button buttonRecipe;
     private Switch switchFavorite;
+    private ListView listViewIngredients;
+    private Map<String,String> mIngredients;
+    private IngredientListAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,12 +54,32 @@ public class Tab1Fragment extends Fragment {
         final Recipe r = (Recipe) this.getArguments().getSerializable("recipe");
         final SimpleDateFormat format = new SimpleDateFormat("dd-MM-YYYY");
 
+        List<Map.Entry<String,String>> ingredients = new ArrayList<>();
+
+
+
+        List<Map.Entry<String,String>> ingredients2 = new ArrayList<>(ingredients);
+
+        adapter = new IngredientListAdapter(getActivity(), R.layout.adapter_ingredient_layout, ingredients);
+        for (String key : r.getIngredients().keySet()){
+            Map.Entry<String,String> entry = new AbstractMap.SimpleEntry<String,String>(key, r.getIngredients().get(key));
+            adapter.add(entry);
+        }
+
+        listViewIngredients = v.findViewById(R.id.listViewIngredients);
+        listViewIngredients.setAdapter(adapter);
+        ViewGroup.LayoutParams lp = (ViewGroup.LayoutParams) listViewIngredients.getLayoutParams();
+        lp.height = 135 * ingredients.size();
+        listViewIngredients.setLayoutParams(lp);
+
         textViewRecipeTitle = v.findViewById(R.id.textViewRecipeTitle);
         textViewRecipePreparationSteps = v.findViewById(R.id.textViewRecipePreparationSteps);
         textViewRecipeCreationDate = v.findViewById(R.id.textViewRecipeCreationDate);
         textViewRecipeDescription = v.findViewById(R.id.textViewRecipeDescription);
         textViewRecipeDifficultyPersonsTime = v.findViewById(R.id.textViewRecipeDifficultyPersonsTime);
         imageViewRecipe = v.findViewById(R.id.imageViewRecipe);
+        listViewIngredients = v.findViewById(R.id.listViewIngredients);
+
 
         String difficultyPersonsTime = "Tezina: " + r.getDifficulty() + ", ";
         difficultyPersonsTime += r.getNumberOfPeople() + " osobe, ";
@@ -63,6 +94,8 @@ public class Tab1Fragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
 
         String[] preparationSteps = r.getPreparationSteps().split("\n");
         for(int i = 0; i< preparationSteps.length; i++) {
