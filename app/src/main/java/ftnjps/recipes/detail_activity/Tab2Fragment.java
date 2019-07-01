@@ -1,5 +1,10 @@
 package ftnjps.recipes.detail_activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +18,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import ftnjps.recipes.R;
 import ftnjps.recipes.data.Recipe;
@@ -52,9 +59,13 @@ public class Tab2Fragment extends Fragment implements OnMapReadyCallback {
 
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(r.getLatitude(),r.getLongitude()))
-                        .title("Butkica")
-                        .snippet("U ovoj zemlji ljudi vole meso"));
+                        .title("Poreklo jela")
+                        .snippet(r.getTitle()));
 
+                if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    mMap.setMyLocationEnabled(true);
+                }
+                
             }
         });
 
@@ -72,4 +83,6 @@ public class Tab2Fragment extends Fragment implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
+
+
 }

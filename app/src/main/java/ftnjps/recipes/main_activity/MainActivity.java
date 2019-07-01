@@ -1,13 +1,25 @@
 package ftnjps.recipes.main_activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.os.Handler;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -30,6 +42,7 @@ import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -202,7 +215,48 @@ public class MainActivity extends AppCompatActivity
                 47.5079
         );*/
 
-        Handler mHandler = new Handler();
+        if(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().getAll().size() == 0) {
+
+            // KONEKCIJA SA FIREBASE
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("recipes");
+
+            // LISTENER KOJI POKUPI RECEPTE SA FIREBASE-A I SMESTI IH U BAZU
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    mRecipes = new ArrayList(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().getAll());
+                    adapter = new RecipesListAdapter(MainActivity.this, R.layout.adapter_view_layout, mRecipes);
+                    mListView.setAdapter(adapter);
+
+                    // NA KLIK JEDNOG RECEPTA IZ LISTE OTVARA SE DETAILVIEW RECEPTA
+                    mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent myIntent = new Intent(MainActivity.this, RecipeActivity.class);
+                            myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            MainActivity.this.startActivity(myIntent);
+                        }
+                    });
+
+                    System.out.println("MainActivity osvezen prikaz");
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            // PITAJ USERA ZA DOZVOLU ZA LOKACIJU DA BI GA NASAO NA MAPI
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+        }
+
+/*        Handler mHandler = new Handler();
         if(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().getAll().size() == 0) {
             mHandler.postDelayed(new Runnable() {
 
@@ -225,12 +279,14 @@ public class MainActivity extends AppCompatActivity
                 }
 
             }, 2000L);
-        }
+        }*/
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        System.out.println("MainActivity usao u onStart");
 
         mRecipes = new ArrayList(DatabaseInstance.getInstance(getApplicationContext()).recipeDao().getAll());
         adapter = new RecipesListAdapter(this, R.layout.adapter_view_layout, mRecipes);

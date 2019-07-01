@@ -11,7 +11,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import ftnjps.recipes.R;
 import ftnjps.recipes.data.Recipe;
@@ -28,7 +27,6 @@ public class RecipeActivity extends AppCompatActivity
     private TabAdapter adapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +73,8 @@ public class RecipeActivity extends AppCompatActivity
         Bundle bundle = new Bundle();
         bundle.putSerializable("recipe", r);
         tab1Fragment.setArguments(bundle);
-        tab2Fragment.setArguments(bundle);
         tab3Fragment.setArguments(bundle);
+        tab2Fragment.setArguments(bundle);
 
         adapter.addFragment(tab1Fragment, "Recept");
         adapter.addFragment(tab2Fragment, "Poreklo jela");
