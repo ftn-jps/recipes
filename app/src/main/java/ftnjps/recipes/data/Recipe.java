@@ -2,11 +2,18 @@ package ftnjps.recipes.data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import ftnjps.recipes.data.typeconverters.MapTypeConverter;
 
 @Entity
+@TypeConverters({MapTypeConverter.class})
 public class Recipe implements Serializable {
 
     //private static Long id_counter = 1l;
@@ -25,11 +32,17 @@ public class Recipe implements Serializable {
     private Double latitude;
     private Double longitude;
     private boolean isFavorite = false;
+    @TypeConverters({MapTypeConverter.class})
+    private Map<String,String> ingredients;
 
     public Recipe() {
     }
 
-    public Recipe(String imgURL, String title, String description, String difficulty, int numberOfPeople, int timeOfPreparation, String preparationSteps, Date creationDate, Double latitude, Double longitude, String youtubeURL) {
+    public Recipe(
+        String imgURL, String title, String description, String difficulty, int numberOfPeople,
+        int timeOfPreparation, String preparationSteps, Date creationDate, Double latitude,
+        Double longitude, String youtubeUR, Map<String,String> ingredients
+        ) {
         this.imgURL = imgURL;
         this.title = title;
         this.description = description;
@@ -41,6 +54,7 @@ public class Recipe implements Serializable {
         this.latitude = latitude;
         this.longitude = longitude;
         this.youtubeURL = youtubeURL;
+        this.ingredients = ingredients;
     }
 
     public String getYoutubeURL() {
@@ -155,4 +169,11 @@ public class Recipe implements Serializable {
         this.isFavorite = isFavorite;
     }
 
+    public Map<String,String> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Map<String,String> ingredients) {
+        this.ingredients = ingredients;
+    }
 }
