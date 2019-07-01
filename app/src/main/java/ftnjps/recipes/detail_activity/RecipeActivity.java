@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.Date;
+import java.util.HashMap;
 
 public class RecipeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,9 +57,10 @@ public class RecipeActivity extends AppCompatActivity
         String latitude = getIntent().getStringExtra("RECIPE_LATITUDE");
         String youtubeURL = getIntent().getStringExtra("RECIPE_YOUTUBEURL");
         String isFavorite = getIntent().getStringExtra("RECIPE_IS_FAVORITE");
+        HashMap<String,String> ingredients = (HashMap<String, String>) getIntent().getSerializableExtra("RECIPE_INGREDIENTS");
 
         Recipe r = new Recipe(recipeImgURL, recipeTitle, recipeDescription, recipeDifficulty, Integer.parseInt(recipeNumberOfPeople), Integer.parseInt(recipeTimeOfPreparation),
-                recipePreparationSteps, new Date(), Double.parseDouble(latitude), Double.parseDouble(longitude), youtubeURL);
+                recipePreparationSteps, new Date(), Double.parseDouble(latitude), Double.parseDouble(longitude), youtubeURL, ingredients);
         r.setId(Long.parseLong(recipeId));
         r.setFavorite(Boolean.parseBoolean(isFavorite));
 

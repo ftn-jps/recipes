@@ -17,6 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -126,6 +127,7 @@ public class RecipesListAdapter extends ArrayAdapter<Recipe> {
                 intent.putExtra("RECIPE_TIME_OF_PREPARATION", Integer.toString(getItem(finalPosition).getTimeOfPreparation()));
                 intent.putExtra("RECIPE_LONGITUDE", getItem(finalPosition).getLongitude().toString());
                 intent.putExtra("RECIPE_LATITUDE", getItem(finalPosition).getLatitude().toString());
+                intent.putExtra("RECIPE_INGREDIENTS", (Serializable) getItem(finalPosition).getIngredients());
                 try {
                     intent.putExtra("RECIPE_CREATION_DATE", format.format(getItem(finalPosition).getCreationDate()));
                     System.out.println( format.parse(format.format(getItem(finalPosition).getCreationDate())));
@@ -154,6 +156,7 @@ public class RecipesListAdapter extends ArrayAdapter<Recipe> {
                 intent.putExtra("RECIPE_TIME_OF_PREPARATION", Integer.toString(getItem(finalPosition).getTimeOfPreparation()));
                 intent.putExtra("RECIPE_LONGITUDE", getItem(finalPosition).getLongitude().toString());
                 intent.putExtra("RECIPE_LATITUDE", getItem(finalPosition).getLatitude().toString());
+                intent.putExtra("RECIPE_INGREDIENTS", (Serializable) getItem(finalPosition).getIngredients());
                 try {
                     intent.putExtra("RECIPE_CREATION_DATE", format.format(getItem(finalPosition).getCreationDate()));
                     System.out.println( format.parse(format.format(getItem(finalPosition).getCreationDate())));
