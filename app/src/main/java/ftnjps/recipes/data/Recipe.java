@@ -44,7 +44,7 @@ public class Recipe implements Serializable {
     public Recipe(
         String imgURL, String title, String description, String difficulty, int numberOfPeople,
         int timeOfPreparation, ArrayList<String> preparationSteps, Date creationDate, Double latitude,
-        Double longitude, String youtubeUR, Map<String,String> ingredients
+        Double longitude, String youtubeURL, Map<String,String> ingredients
         ) {
         this.imgURL = imgURL;
         this.title = title;
