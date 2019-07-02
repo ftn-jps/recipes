@@ -122,7 +122,7 @@ public class RecipesListAdapter extends ArrayAdapter<Recipe> {
                 intent.putExtra("RECIPE_DESCRIPTION", getItem(finalPosition).getDescription());
                 intent.putExtra("RECIPE_YOUTUBEURL", getItem(finalPosition).getYoutubeURL());
                 intent.putExtra("RECIPE_DIFFICULTY", getItem(finalPosition).getDifficulty());
-                intent.putExtra("RECIPE_PREPARATION_STEPS", getItem(finalPosition).getPreparationSteps());
+                intent.putExtra("RECIPE_PREPARATION_STEPS", (Serializable) getItem(finalPosition).getPreparationSteps());
                 intent.putExtra("RECIPE_NUMBER_OF_PEOPLE", Integer.toString(getItem(finalPosition).getNumberOfPeople()));
                 intent.putExtra("RECIPE_TIME_OF_PREPARATION", Integer.toString(getItem(finalPosition).getTimeOfPreparation()));
                 intent.putExtra("RECIPE_LONGITUDE", getItem(finalPosition).getLongitude().toString());
@@ -151,7 +151,7 @@ public class RecipesListAdapter extends ArrayAdapter<Recipe> {
                 intent.putExtra("RECIPE_DESCRIPTION", getItem(finalPosition).getDescription());
                 intent.putExtra("RECIPE_YOUTUBEURL", getItem(finalPosition).getYoutubeURL());
                 intent.putExtra("RECIPE_DIFFICULTY", getItem(finalPosition).getDifficulty());
-                intent.putExtra("RECIPE_PREPARATION_STEPS", getItem(finalPosition).getPreparationSteps());
+                intent.putExtra("RECIPE_PREPARATION_STEPS", (Serializable) getItem(finalPosition).getPreparationSteps());
                 intent.putExtra("RECIPE_NUMBER_OF_PEOPLE", Integer.toString(getItem(finalPosition).getNumberOfPeople()));
                 intent.putExtra("RECIPE_TIME_OF_PREPARATION", Integer.toString(getItem(finalPosition).getTimeOfPreparation()));
                 intent.putExtra("RECIPE_LONGITUDE", getItem(finalPosition).getLongitude().toString());

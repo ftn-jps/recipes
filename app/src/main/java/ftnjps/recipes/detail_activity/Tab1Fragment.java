@@ -1,6 +1,7 @@
 package ftnjps.recipes.detail_activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,7 +38,9 @@ public class Tab1Fragment extends Fragment {
 
     private TextView textViewRecipeTitle;
     private TextView textViewRecipePreparationSteps;
-    private TextView textViewRecipeDifficultyPersonsTime;
+    private TextView textViewDifficulty;
+    private TextView textViewPersons;
+    private TextView textViewTime;
     private TextView textViewRecipeCreationDate;
     private TextView textViewRecipeDescription;
     private ImageView imageViewRecipe;
@@ -46,6 +49,10 @@ public class Tab1Fragment extends Fragment {
     private ListView listViewIngredients;
     private Map<String,String> mIngredients;
     private IngredientListAdapter adapter;
+    private ListView listViewPreparationSteps;
+    private Map<String,String> mPreparationSteps;
+    private PreparationListAdapter preparationAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,37 +62,67 @@ public class Tab1Fragment extends Fragment {
         final SimpleDateFormat format = new SimpleDateFormat("dd-MM-YYYY");
 
         List<Map.Entry<String,String>> ingredients = new ArrayList<>();
-
-
-
-        List<Map.Entry<String,String>> ingredients2 = new ArrayList<>(ingredients);
-
         adapter = new IngredientListAdapter(getActivity(), R.layout.adapter_ingredient_layout, ingredients);
         for (String key : r.getIngredients().keySet()){
             Map.Entry<String,String> entry = new AbstractMap.SimpleEntry<String,String>(key, r.getIngredients().get(key));
             adapter.add(entry);
         }
 
+        ArrayList<String> steps = new ArrayList<>();
+        preparationAdapter = new PreparationListAdapter(getActivity(), R.layout.adapter_preparation_layout, steps);
+        for (String step : r.getPreparationSteps()){
+            preparationAdapter.add(step);
+        }
+
         listViewIngredients = v.findViewById(R.id.listViewIngredients);
         listViewIngredients.setAdapter(adapter);
+
+        listViewPreparationSteps = v.findViewById(R.id.listViewPreparationSteps);
+        listViewPreparationSteps.setAdapter(preparationAdapter);
+
         ViewGroup.LayoutParams lp = (ViewGroup.LayoutParams) listViewIngredients.getLayoutParams();
-        lp.height = 135 * ingredients.size();
+        lp.height = 142 * ingredients.size();
         listViewIngredients.setLayoutParams(lp);
 
+        int height = 0;
+        for (String i : steps) {
+            height += i.length();
+        }
+        ViewGroup.LayoutParams lp1 = (ViewGroup.LayoutParams) listViewPreparationSteps.getLayoutParams();
+        lp1.height = 3 * height + 100* steps.size();
+        listViewPreparationSteps.setLayoutParams(lp1);
+
         textViewRecipeTitle = v.findViewById(R.id.textViewRecipeTitle);
-        textViewRecipePreparationSteps = v.findViewById(R.id.textViewRecipePreparationSteps);
+//        textViewRecipePreparationSteps = v.findViewById(R.id.textViewRecipePreparationSteps);
         textViewRecipeCreationDate = v.findViewById(R.id.textViewRecipeCreationDate);
         textViewRecipeDescription = v.findViewById(R.id.textViewRecipeDescription);
-        textViewRecipeDifficultyPersonsTime = v.findViewById(R.id.textViewRecipeDifficultyPersonsTime);
+
+        textViewDifficulty = v.findViewById(R.id.difficulty);
+        textViewPersons = v.findViewById(R.id.persons);
+        textViewTime = v.findViewById(R.id.time);
+
         imageViewRecipe = v.findViewById(R.id.imageViewRecipe);
         listViewIngredients = v.findViewById(R.id.listViewIngredients);
 
+        textViewDifficulty.setText(r.getDifficulty());
+        switch (r.getDifficulty()) {
+            case "Tesko":
+                textViewDifficulty.setTextColor(Color.rgb(139,0,0));
+                break;
 
-        String difficultyPersonsTime = "Tezina: " + r.getDifficulty() + ", ";
-        difficultyPersonsTime += r.getNumberOfPeople() + " osobe, ";
-        difficultyPersonsTime += r.getTimeOfPreparation() + " min";
+            case "Srednje":
+                textViewDifficulty.setTextColor(Color.rgb(204,204,0));
+                break;
 
-        textViewRecipeDifficultyPersonsTime.setText(difficultyPersonsTime);
+            case "Lako":
+                textViewDifficulty.setTextColor(Color.GREEN);
+                break;
+
+            default: textViewDifficulty.setTextColor(Color.DKGRAY);
+        }
+        textViewPersons.setText(String.format("Osoba: %s", r.getNumberOfPeople()));
+        textViewTime.setText(String.format("%s", r.getTimeOfPreparation() + " min"));
+
         textViewRecipeTitle.setText(r.getTitle());
         textViewRecipeDescription.setText("\"" + r.getDescription() + "\"");
 
@@ -97,12 +134,13 @@ public class Tab1Fragment extends Fragment {
 
 
 
-        String[] preparationSteps = r.getPreparationSteps().split("\n");
-        for(int i = 0; i< preparationSteps.length; i++) {
-            int step = i + 1;
-            textViewRecipePreparationSteps.append("Korak " + step + ":\n" + preparationSteps[i] + "\n");
-        }
-        textViewRecipeTitle.setText(r.getTitle());
+
+//        String[] preparationSteps = r.getPreparationSteps().split("\n");
+//        for(int i = 0; i< preparationSteps.length; i++) {
+//            int step = i + 1;
+//            textViewRecipePreparationSteps.append("Korak " + step + ":\n" + preparationSteps[i] + "\n");
+//        }
+//        textViewRecipeTitle.setText(r.getTitle());
 
         //create the imageloader object
         ImageLoader imageLoader = ImageLoader.getInstance();

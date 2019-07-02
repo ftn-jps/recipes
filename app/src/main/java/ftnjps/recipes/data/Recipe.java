@@ -1,6 +1,7 @@
 package ftnjps.recipes.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,10 +11,11 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import ftnjps.recipes.data.typeconverters.ListTypeConverter;
 import ftnjps.recipes.data.typeconverters.MapTypeConverter;
 
 @Entity
-@TypeConverters({MapTypeConverter.class})
+@TypeConverters({MapTypeConverter.class, ListTypeConverter.class})
 public class Recipe implements Serializable {
 
     //private static Long id_counter = 1l;
@@ -27,7 +29,8 @@ public class Recipe implements Serializable {
     private String difficulty;
     private int numberOfPeople;
     private int timeOfPreparation;
-    private String preparationSteps;
+    @TypeConverters({ListTypeConverter.class})
+    private ArrayList<String> preparationSteps;
     private Date creationDate;
     private Double latitude;
     private Double longitude;
@@ -40,7 +43,7 @@ public class Recipe implements Serializable {
 
     public Recipe(
         String imgURL, String title, String description, String difficulty, int numberOfPeople,
-        int timeOfPreparation, String preparationSteps, Date creationDate, Double latitude,
+        int timeOfPreparation, ArrayList<String> preparationSteps, Date creationDate, Double latitude,
         Double longitude, String youtubeUR, Map<String,String> ingredients
         ) {
         this.imgURL = imgURL;
@@ -105,11 +108,11 @@ public class Recipe implements Serializable {
         this.timeOfPreparation = timeOfPreparation;
     }
 
-    public String getPreparationSteps() {
+    public  ArrayList<String> getPreparationSteps() {
         return preparationSteps;
     }
 
-    public void setPreparationSteps(String preparationSteps) {
+    public void setPreparationSteps( ArrayList<String> preparationSteps) {
         this.preparationSteps = preparationSteps;
     }
 

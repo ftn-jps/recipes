@@ -19,6 +19,7 @@ import ftnjps.recipes.settings_activity.SettingsActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -48,7 +49,7 @@ public class RecipeActivity extends AppCompatActivity
         String recipeTitle = getIntent().getStringExtra("RECIPE_TITLE");
         String recipeDescription = getIntent().getStringExtra("RECIPE_DESCRIPTION");
         String recipeDifficulty = getIntent().getStringExtra("RECIPE_DIFFICULTY");
-        String recipePreparationSteps = getIntent().getStringExtra("RECIPE_PREPARATION_STEPS");
+        ArrayList<String> recipePreparationSteps = (ArrayList<String>) getIntent().getSerializableExtra("RECIPE_PREPARATION_STEPS");
         String recipeNumberOfPeople = getIntent().getStringExtra("RECIPE_NUMBER_OF_PEOPLE");
         String recipeTimeOfPreparation = getIntent().getStringExtra("RECIPE_TIME_OF_PREPARATION");
         String recipeCreationDate = getIntent().getStringExtra("RECIPE_CREATION_DATE");

@@ -64,20 +64,56 @@
                 android:background="#c0c0c0" />
 
 
-            <TextView
-                android:id="@+id/textViewRecipeDifficultyPersonsTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/viewHorizontalLine"
-                android:layout_marginTop="12dp"
-                android:text="TextView"
-                android:textSize="18sp" />
+            <LinearLayout
+                android:id="@+id/difficultyPersonsTime"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_below="@id/viewHorizontalLine">
+
+                <TextView
+                    android:id="@+id/persons"
+                    android:layout_width="212dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="1"
+                    android:paddingStart="4dp"
+                    android:text="TextView"
+                    android:textSize="18dp"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/difficulty"
+                    android:layout_width="212dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:paddingEnd="4dp"
+                    android:text="TextView"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="212dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:paddingEnd="4dp"
+                    android:text="TextView"
+                    android:textSize="18dp"
+                    android:textStyle="italic" />
+            </LinearLayout>
 
             <View
                 android:id="@+id/viewHorizontalLine2"
                 android:layout_width="fill_parent"
                 android:layout_height="2dp"
-                android:layout_below="@id/textViewRecipeDifficultyPersonsTime"
+                android:layout_below="@id/difficultyPersonsTime"
                 android:layout_marginTop="18dp"
                 android:background="#c0c0c0" />
 
@@ -115,22 +151,23 @@
                 android:text="Priprema:"
                 android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/textViewRecipePreparationSteps"
+            <ListView
+                android:id="@+id/listViewPreparationSteps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewPriprema"
-                android:textSize="18sp" />
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="50dp" />
 
             <Button
                 android:id="@+id/buttonRecipe"
-                android:layout_below="@id/textViewRecipePreparationSteps"
+                android:layout_below="@id/listViewPreparationSteps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Youtube video"/>
             <Switch
                 android:id="@+id/switchFavorite"
-                android:layout_below="@id/textViewRecipePreparationSteps"
+                android:layout_below="@id/listViewPreparationSteps"
                 android:layout_toRightOf="@id/buttonRecipe"
                 android:layout_alignBaseline="@id/buttonRecipe"
                 android:layout_marginLeft="15dp"
